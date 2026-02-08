@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>오늘의 나의 마음</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body { text-align:center; margin-top:120px; font-family:Arial; }
+        h1 { font-size:32px; }
+        button { padding:12px 24px; font-size:18px; }
+        #result { margin-top:40px; font-size:24px; }
+    </style>
+</head>
+<body>
+
+<h1>💘 오늘의 나의 마음</h1>
+<button id="btn">눌러봐</button>
+<button onclick="location.href='love.html'">
+    다음 질문 💌
+</button>
+<div id="result"></div>
+
+<script>
+    // 애인용 멘트 목록
+    const messages = [
+        "널 만나서 다행이야",
+        "생각보다 더 많이 좋아해",
+        "보고싶어",
+        "아프지마",
+        "너랑 있으면 행복해",
+        "목소리 듣고 싶어",
+        "너랑 함께하는 미래가 너무 기대돼",
+        "넌 충분히 잘하고 있어",
+        "난 항상 네 편이야",
+        "너랑 함께하는 날들은 전부 특별해",
+        "넌 뭐든지 잘할 수 있어, 난 항상 믿어",
+        "언제든 힘들면 나한테 와서 안겨",
+        "일단 도전해보자",
+        "잘 될거야"
+    ];
+
+    $("#btn").click(function () {
+        const idx = Math.floor(Math.random() * messages.length);
+        $("#result").text(messages[idx] + " ❤️");
+    });
+</script>
+
+</body>
+</html>
