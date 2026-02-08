@@ -1,0 +1,145 @@
+/* 공통 설정 */
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Pretendard', Arial, sans-serif;
+    background: linear-gradient(135deg, #ffb6d5, #fff);
+    text-align: center;
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    color: #d63384;
+    word-break: keep-all;
+}
+
+/* 버튼 공통 스타일 */
+button {
+    padding: 16px 32px;
+    font-size: 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: #ff6fae;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease-in-out;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.result{
+    font-size: 20px;
+    margin: 10px;
+}
+
+/* playground 영역 설정 */
+.playground {
+    position: relative;
+    width: 90vw;
+    max-width: 400px;
+    height: 350px;
+    border: 3px dashed #ffb6d5;
+    border-radius: 30px;
+    margin-top: 20px;
+    overflow: hidden; /* 영역 밖으로 나가는 이미지/버튼 숨김 */
+    background: #eee; /* 이미지 로딩 전 배경색 */
+}
+
+/* 이미지가 플레이그라운드를 100% 채우도록 설정 */
+.bg-char {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 비율을 유지하면서 영역을 꽉 채움 */
+    pointer-events: none; /* 버튼 클릭 방해 방지 */
+    user-select: none;
+    z-index: 1; /* 가장 아래에 배치 */
+}
+
+/* 플레이그라운드 내부 버튼 배치 통합 */
+#yes, #no {
+    position: absolute;
+    z-index: 10;
+    margin: 0;
+    /* 세로 위치를 하단에서 60px 띄움 */
+    top: auto;
+    bottom: 40px;
+}
+
+#yes {
+    /* 왼쪽에서 30% 지점에 배치하고, 버튼 자체 너비의 절반만큼 왼쪽으로 밀어 중앙 맞춤 */
+    left: 35%;
+    transform: translateX(-50%);
+    background: #ff4791;
+}
+
+#no {
+    /* 왼쪽에서 65% 지점에 배치 */
+    left: 65%;
+    transform: translateX(-50%);
+    /* 도망가는 효과를 위해 transition 유지 */
+    transition: all 0.2s ease-out;
+}
+
+/* NO 버튼이 도망갈 때는 JS에서 top, left를 직접 수정하므로
+   최초 로드 시의 bottom: 40px과 충돌하지 않도록 주의가 필요합니다. */
+
+/* 저주 말풍선 */
+#curseBubble {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 300px;
+    background: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff4791;
+    display: none;
+    z-index: 100;
+    border: 2px solid #ff6fae;
+}
+
+/* 모바일 웹뷰 대응 (핵심 수정 부분) */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+        padding: 0 20px;
+    }
+
+    .playground {
+        height: 380px; /* 공간이 너무 좁으면 답답해 보이므로 살짝 키움 */
+        width: 95vw;
+    }
+
+    button {
+        padding: 18px 36px; /* 손가락으로 누르기 편하게 크기 키움 */
+        font-size: 22px;
+    }
+
+    #curseBubble {
+        font-size: 18px;
+        width: 85%;
+    }
+}

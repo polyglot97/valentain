@@ -2,53 +2,55 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>질문</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <style>
-        body { text-align:center; margin-top:120px; font-family:Arial; }
-        button { padding:12px 24px; font-size:18px; position:absolute; }
-        #yes { left:45%; top:300px; }
-        #no { left:55%; top:300px; }
-        #curseBubble {
-            position:absolute;
-            top:20%;
-            left:50%;
-            transform:translateX(-50%);
-            background:white;
-            padding:14px 20px;
-            border-radius:20px;
-            box-shadow:0 5px 15px rgba(0,0,0,0.15);
-            font-size:16px;
-            display:none;
-            z-index:10;
-        }
-    </style>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
+
 <h1>나 좋아해? 💘</h1>
 <div id="curseBubble"></div>
-<div>
-    <img src="./images/치이카와.jpg">
+
+<div class="playground">
+    <img src="./images/치이카와.jpg" class="bg-char">
+
+    <button id="yes">YES</button>
+    <button id="no">NO</button>
 </div>
 
-<button id="yes">YES</button>
-<button id="no">NO</button>
-
 <script>
-    // YES 클릭 시
+    // YES 클릭 시 (원본 그대로)
     $("#yes").click(function () {
         location.href = "result.html";
     });
 
-    // NO 버튼 도망가기
-    $("#no").mouseover(function () {
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 50);
-        $(this).css({ left: x + "px", top: y + "px" });
-    });
+    // 디바이스 분기 (추가)
+    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    const evadeEvent = isMobile ? "touchstart" : "mouseover";
 
+    // NO 버튼 도망가기 (기존 로직 유지 + 영역 제한)
+    function moveNo() {
+        const $area = $(".playground");
+        const $btn = $("#no");
+
+        // 도망갈 때는 bottom 대신 top을 기준으로 움직이도록 초기화
+        $btn.css("bottom", "auto");
+
+        const maxX = $area.width() - $btn.outerWidth();
+        const maxY = $area.height() - $btn.outerHeight();
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        $btn.css({ left: x + "px", top: y + "px" });
+    }
+
+    $("#no").on(evadeEvent, moveNo);
+
+    // 저주 멘트 (원본 그대로)
     const curses = [
-        "오늘 커피 마시면 살짝 식어있음 ☕",
+        "오늘 커피 마시면 얼음 빨리녹음 ☕",
         "오늘 커피 마셔도 피곤함 😪",
         "버스 탈 때 자리 없음 😌",
         "유튜브 광고 2개 연속 나옴",
@@ -60,11 +62,11 @@
         "결국 YES 다시 누르게 됨"
     ];
 
-    // NO 클릭 시
+    // NO 클릭 시 (원본 그대로)
     $("#no").click(function () {
         const idx = Math.floor(Math.random() * curses.length);
-        $("#curseBubble").text("저주 발동! " + curses[idx]).fadeIn();
-        setTimeout(() => $("#curseBubble").fadeOut(), 1200);
+        $("#curseBubble").text("저주 발동! \n\n" + curses[idx]).fadeIn();
+        setTimeout(() => $("#curseBubble").fadeOut(), 5000);
     });
 </script>
 

@@ -2,23 +2,19 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>오늘의 나의 마음</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💘 오늘의 내 마음</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <style>
-        body { text-align:center; margin-top:120px; font-family:Arial; }
-        h1 { font-size:32px; }
-        button { padding:12px 24px; font-size:18px; }
-        #result { margin-top:40px; font-size:24px; }
-    </style>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
 
-<h1>💘 오늘의 나의 마음</h1>
+<h1>💘 오늘의 내 마음</h1>
 <button id="btn">눌러봐</button>
 <button onclick="location.href='love.html'">
     다음 질문 💌
 </button>
-<div id="result"></div>
+<div class="result" id="result"></div>
 
 <script>
     // 애인용 멘트 목록
@@ -42,6 +38,11 @@
     $("#btn").click(function () {
         const idx = Math.floor(Math.random() * messages.length);
         $("#result").text(messages[idx] + " ❤️");
+
+        // 모바일 진동 피드백 (지원되는 브라우저/웹뷰 전용)
+        if (window.navigator.vibrate) {
+            window.navigator.vibrate(50);
+        }
     });
 </script>
 
